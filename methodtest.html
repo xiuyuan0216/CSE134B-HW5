@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>httpRequest</title>
+    <style>
+        body{
+            background-color: #e9dabb;
+            color: #001345;
+        }
+        main{
+            display: flex;
+            flex-direction: column;
+            gap:30px;
+            align-items: center;
+            border:2px solid #B4A117;
+            margin: 20vh;
+            background-color: white;
+            padding:20px;
+        }
+        table{
+            border: 2px solid #B4A117;
+            background-color: lightgray;
+        }
+
+        td, tr, th{
+            border: 1px solid #B4A117;
+            margin:10px;
+        }
+
+        form{
+            display:flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <form id="article_form">
+            <h2>Please enter your article information</h2>
+            <label for="id">Your ID here: 
+                <input type="number" id="id" name="id">
+            </label>
+
+
+            <label for="article_name">Your article name here:
+                <input type="text" id="article_name" name="article_name">
+            </label>
+
+
+            <br>
+            <br>
+
+            <label for="">Your article body here:
+                <textarea id="article_body" name="article_body"></textarea>
+            </label>
+
+            <br>
+
+            <input type="hidden" id="date" name="date">
+
+            <input type="button" id="postBtn" value="POST">
+
+            <input type="button" id="getBtn" value="GET">
+
+            <input type="button" id="putBtn" value="PUT">
+
+            <input type="button" id="deleteBtn" value="DELETE">
+
+            <br>
+
+            <div id="radio_container">
+
+            <label for="xmlhttp">XML
+            <input type="radio" id="xmlhttp" name="method" checked>
+            </label>
+
+            <label for="fetch">Fetch API
+                <input type="radio" id="fetch" name="method">
+            </label>
+
+            </div>
+
+
+        </form>
+
+        <output id="result"></output>
+
+        <script>
+            let dateElem = document.getElementById("date");
+            let xmlhttpradio = document.getElementById("xmlhttp");
+            let post = document.getElementById("postBtn");
+            let get = document.getElementById("getBtn");
+            let put = document.getElementById("putBtn");
+            let del = document.getElementById("deleteBtn");
+
+            dateElem.value = new Date().toString();
+
+            function jsonToTable(json){
+                let htmlTable = "<table>";
+                
+                for(let key in json){
+                    if(json[key]!= null && typeof json[key] === "object" && !Array.isArray(json[key])){
+                        htmlTable+="<tr>";
+                        htmlTable+="<th>"+key+"</th>";
+                        htmlTable+="<td>";
+                        htmlTable+=jsonToTable(json[key]);
+                        htmlTable+="</td></tr>";
+                    }else{
+                        htmlTable+="<tr>";
+                        htmlTable+="<th>"+key+"</th>";
+                        htmlTable+="<td>";
+                        htmlTable+=json[key];
+                        htmlTable+="</td></tr>";
+                    }
+                }
+                htmlTable+="</table>";
+                return htmlTable;
+            }
+
+            function xmlpost(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                let xhr = new XMLHttpRequest();
+                xhr.open("post", "https://httpbin.org/post");
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
+                xhr.send(JSON.stringify(toSend));
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        let result = jsonToTable(JSON.parse(xhr.responseText));
+                        let output = document.getElementById("result");
+                        output.innerHTML = result;
+                    }
+                }
+            }
+
+            function xmlget(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                let xhr = new XMLHttpRequest();
+                xhr.open("get", "https://httpbin.org/get?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        let result = jsonToTable(JSON.parse(xhr.responseText));
+                        let output = document.getElementById("result");
+                        output.innerHTML = result;
+                    }
+                }
+            }
+
+            function xmlput(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                let xhr = new XMLHttpRequest();
+                xhr.open("put", "https://httpbin.org/put");
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
+                xhr.send(JSON.stringify(toSend));
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        let result = jsonToTable(JSON.parse(xhr.responseText));
+                        let output = document.getElementById("result");
+                        output.innerHTML = result;
+                    }
+                }
+
+            }
+
+            function xmldelete(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                let xhr = new XMLHttpRequest();
+                xhr.open("delete", "https://httpbin.org/delete?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date);
+                xhr.send();
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        let result = jsonToTable(JSON.parse(xhr.responseText));
+                        let output = document.getElementById("result");
+                        output.innerHTML = result;
+                    }
+                }
+            }
+
+            function fetchpost(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
+                fetch("https://httpbin.org/post", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    },
+                    body: JSON.stringify(toSend)
+                }).then(response => response.json())
+                .then(data => {
+                    let result = jsonToTable(data);
+                    let output = document.getElementById("result");
+                    output.innerHTML = result;
+                })
+
+            }
+
+            function fetchget(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                fetch("https://httpbin.org/get?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date)
+                .then(response => response.json())
+                .then(data => {
+                    let result = jsonToTable(data);
+                    let output = document.getElementById("result");
+                    output.innerHTML = result;
+                    });
+            }
+
+            function fetchput(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
+                fetch("https://httpbin.org/put", {
+                    method: "put",
+                    headers: {
+                        "Content-Type": "application/json;charset=UTF-8"
+                    },
+                    body: JSON.stringify(toSend)
+                }).then(response => response.json())
+                .then(data => {
+                    let result = jsonToTable(data);
+                    let output = document.getElementById("result");
+                    output.innerHTML = result;
+                })
+            }
+
+            function fetchdelete(){
+                let id = document.getElementById("id").value;
+                let article_name = document.getElementById("article_name").value
+                let article_body = document.getElementById("article_body").value;
+                let date = document.getElementById("date").value;
+                fetch("https://httpbin.org/delete?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date, 
+                {method: "delete"})
+                .then(response => response.json())
+                .then(data => {
+                    let result = jsonToTable(data);
+                    let output = document.getElementById("result");
+                    output.innerHTML = result;
+                    });
+            }
+
+
+            function postfunc(){
+                let xmlhttpradio = document.getElementById("xmlhttp");
+                if(xmlhttpradio.checked==true){
+                    xmlpost();
+                }else{
+                    fetchpost();
+                }
+            }
+
+            function getfunc(){
+                let xmlhttpradio = document.getElementById("xmlhttp");
+                if(xmlhttpradio.checked==true){
+                    xmlget();
+                }else{
+                    fetchget();
+                }
+            }
+
+            function putfunc(){
+                let xmlhttpradio = document.getElementById("xmlhttp");
+                if(xmlhttpradio.checked==true){
+                    xmlput();
+                }else{
+                    fetchput();
+                }
+            }
+
+            function deletefunc(){
+                let xmlhttpradio = document.getElementById("xmlhttp");
+                if(xmlhttpradio.checked==true){
+                    xmldelete();
+                }else{
+                    fetchdelete();
+                }
+            }
+
+            post.addEventListener("click", postfunc);
+            get.addEventListener("click", getfunc);
+            put.addEventListener("click", putfunc);
+            del.addEventListener("click", deletefunc);
+            
+        </script>
+    </main>
+</body>
+</html>
