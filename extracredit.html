@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ExtraCredit</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input id="count" type="button" v-on:click="increase" value="Times Cliked: 0">
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        count: 0
+      },
+      methods: {
+        increase: function() {
+          this.count++;
+          let button = document.getElementById("count");
+          button.value = "Time Clicked: "+this.count.toString();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
