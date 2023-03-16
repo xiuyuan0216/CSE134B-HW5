@@ -18,13 +18,13 @@
         count: 0
       },
       template:
-        "<el-button type='success' v-on:click='increase' id='count'>Time Clicked: 0</el-button>"
+        "<el-button type='success' v-on:click='increase' id='count' round=true icon='el-icon-s-promotion'>Time Clicked: 0</el-button>"
       ,
       methods: {
         increase: function() {
           this.count++;
           let button = document.getElementById("count");
-          button.innerHTML = "Time Clicked: "+this.count.toString();
+          button.innerHTML = "<i class='el-icon-s-promotion'></i> Time Clicked: "+this.count.toString();
         }
       }
     });
