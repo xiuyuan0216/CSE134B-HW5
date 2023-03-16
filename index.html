@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MainPage</title>
+    <script>
+        console.log("Welcome to Xiu Yuan's Webpage");
+    </script>
+    <link rel="icon" href="google.ico">
+    <link rel="stylesheet" href="indexStyle.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2EGWXGMK2"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-R2EGWXGMK2');
+    </script>
+</head>
+<body>
+    <header>
+    <nav class="nav-bar">
+        <input id="nav-bar-toggle" type="checkbox">
+        <a href="index.html" class="nav-tag">Home Page</a>
+        <a href="research.html" class="nav-tag">Research Experience</a>
+        <a href="contact.html" class="nav-tag">Contact</a>
+        <a href="methodtest.html" class="nav-tag">HTTPMethod</a>
+        <a href="webcomponent.html" class="nav-tag">CountClick</a>
+        <a href="extracredit.html" class="nav-tag">Extra</a>
+    </nav>
+    </header>
+
+    <main>
+        <div id="page-header">
+            <h1 id="name">Xiu Yuan</h1>
+            <em>Second-year Undergraduate Student at UCSD CSE</em>
+        </div>
+        <picture>
+            <source srcset="face.webp" media="(max-width: 700px) and (min-resolution: 300dpi)">
+            <source srcset="face.png" media="(max-width: 1000px)">
+            <img src="face.jpg" alt="Xiu's smile" class="image">
+        </picture> 
+
+        <aside>
+            <code>
+                System.out.println("Hello World!");
+            </code>
+        </aside>
+
+        <div id="information">
+        <h2>Personal Information:</h2>
+        <p>
+            <strong>Date of Birth: Feb.16, 2003</strong>
+        </p>
+        <p>
+            <b>Location: San Diego, CA</b>
+        </p>
+
+        <p id="bio">
+            I am a second-year undergraduate student majoring in Computer Science at University of California, San Diego.
+            I am passionate about computer vision, deep learning, robotics, 
+            and reinforcement learning. Hope to work with you in all kinds of projects!
+        </p>
+
+        </div>
+    </main>
+
+    <br>
+    <div id="education">
+        <h2>Education Background:</h2>
+        <ul id="education-list">
+            <li>
+            <p>
+                <em>University of California, San Diego</em>
+            </p>
+            <pre>2021.9 - present</pre>
+
+            <pre>Major:   Computer Science</pre>
+
+
+            </li>
+
+            <li>
+                <p>
+                    <em>Nanjing Foreign Language School (High School)</em>
+                </p>
+                <pre>2018.9 - 2021.6</pre>
+            </li>
+        </ul>
+    </div>
+
+    <br>
+
+    <footer>
+        <details>
+            <summary><i>All Rights Reserved by Xiu Yuan</i></summary>
+            <ol>
+                <li>Xiu Yuan has the right to update and modify the contents of this page</li>
+                <li>It is not allowed to copy from this page</li>
+            </ol>
+        </details>
+    </footer>
+</body>
+</html>
