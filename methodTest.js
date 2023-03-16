@@ -28,7 +28,7 @@ function xmlpost(){
     let article_body = document.getElementById("article_body").value;
     let date = document.getElementById("date").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("post", "https://httpbin.org/post");
+    xhr.open("POST", "https://httpbin.org/post");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
     xhr.send(JSON.stringify(toSend));
@@ -47,7 +47,7 @@ function xmlget(){
     let article_body = document.getElementById("article_body").value;
     let date = document.getElementById("date").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("get", "https://httpbin.org/get?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date);
+    xhr.open("GET", "https://httpbin.org/get?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date);
     xhr.send();
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
@@ -64,7 +64,7 @@ function xmlput(){
     let article_body = document.getElementById("article_body").value;
     let date = document.getElementById("date").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("put", "https://httpbin.org/put");
+    xhr.open("PUT", "https://httpbin.org/put");
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
     xhr.send(JSON.stringify(toSend));
@@ -84,7 +84,7 @@ function xmldelete(){
     let article_body = document.getElementById("article_body").value;
     let date = document.getElementById("date").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("delete", "https://httpbin.org/delete?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date);
+    xhr.open("DELETE", "https://httpbin.org/delete?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date);
     xhr.send();
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
@@ -102,7 +102,7 @@ function fetchpost(){
     let date = document.getElementById("date").value;
     let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
     fetch("https://httpbin.org/post", {
-        method: "post",
+        method: "POST",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
         },
@@ -137,7 +137,7 @@ function fetchput(){
     let date = document.getElementById("date").value;
     let toSend = {id:id, article_name:article_name, article_body:article_body, date:date};
     fetch("https://httpbin.org/put", {
-        method: "put",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json;charset=UTF-8"
         },
@@ -156,7 +156,7 @@ function fetchdelete(){
     let article_body = document.getElementById("article_body").value;
     let date = document.getElementById("date").value;
     fetch("https://httpbin.org/delete?id="+id+"&article_name="+article_name+"&article_body="+article_body+"&date="+date, 
-    {method: "delete"})
+    {method: "DELETE"})
     .then(response => response.json())
     .then(data => {
         let result = jsonToTable(data);
