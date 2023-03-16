@@ -3,11 +3,15 @@
 <head>
   <title>ExtraCredit</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <body>
   <div id="app">
-    <input id="count" type="button" v-on:click="increase" value="Times Cliked: 0">
+      <vue-button-count></vue-button-count>
   </div>
+
+  <el-button type="success"> do</el-button>
 
   <script>
     let app = new Vue({
@@ -15,11 +19,14 @@
       data: {
         count: 0
       },
+      template:
+        "<el-button type='success' v-on:click='increase' id='count'>Time Clicked: 0</el-button>"
+      ,
       methods: {
         increase: function() {
           this.count++;
           let button = document.getElementById("count");
-          button.value = "Time Clicked: "+this.count.toString();
+          button.innerHTML = "Time Clicked: "+this.count.toString();
         }
       }
     });
